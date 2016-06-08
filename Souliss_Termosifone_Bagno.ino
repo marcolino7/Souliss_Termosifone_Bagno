@@ -13,6 +13,10 @@
 #define IP_ADDRESS 136
 #define HOSTNAME   "termobagno"
 
+#define	VNET_RESETTIME_INSKETCH
+#define VNET_RESETTIME			0x00042F7	// ((20 Min*60)*1000)/70ms = 17143 => 42F7
+#define VNET_HARDRESET			ESP.reset()
+
 // Configure the framework
 #include "bconf/MCU_ESP8266.h"              // Load the code directly on the ESP8266
 
@@ -81,10 +85,11 @@ float t_rit;
 
 
 void setup()
-{   
-   Initialize();
+{  
+	delay((IP_ADDRESS - 128) * 5000);
+    Initialize();
 
-   digitalWrite(PIN_DALLAS_1, HIGH);
+    digitalWrite(PIN_DALLAS_1, HIGH);
 
 	//Pin Setup
 	pinMode(PIN_RELE_1, OUTPUT);
